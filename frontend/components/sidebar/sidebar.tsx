@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useAuth } from "@/lib/auth/context";
 import { getTranslation } from "@/lib/i18n/i18n";
+import { useConfirmDialog } from "@/hooks/useConfirmDialog";
 import { LanguageSwitcherCompact } from "../langage-components/LanguageSwitcherCompact";
 import { ThemeSwitcherCompact } from "../theme-components/ThemeSwitcherCompact";
 
@@ -39,15 +40,25 @@ export function Sidebar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language } = useLanguage();
   const { user, logout } = useAuth();
+  const confirmDialog = useConfirmDialog();
 
   const t = (key: Parameters<typeof getTranslation>[0]) =>
     getTranslation(key, language);
 
   const navigation = getNavigation(t as (key: string) => string);
 
-  const handleLogout = () => {
-    logout();
-    router.push("/login");
+  const handleLogout = async () => {
+    const confirmed = await confirmDialog.confirm({
+      title: t("logoutConfirmation"),
+      message: t("logoutConfirmationMessage"),
+      variant: "danger",
+      confirmText: t("logout"),
+      cancelText: t("cancel"),
+      onConfirm: async () => {
+        logout();
+        router.push("/login");
+      },
+    });
   };
 
   // Initiales de l'utilisateur

@@ -21,12 +21,14 @@ export function PreferencesSettings() {
         <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-4 sm:mb-6">
           {t("appearance")}
         </h2>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
               {t("theme")}
             </label>
-            <div className="grid grid-cols-3 gap-3 sm:gap-4">
+
+            <div className="mt-1 lg:mt-2.5 grid grid-cols-3 gap-3 sm:gap-4">
               <button
                 onClick={() => setTheme("light")}
                 className={`flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 ${
@@ -47,6 +49,7 @@ export function PreferencesSettings() {
                   {t("light")}
                 </span>
               </button>
+
               <button
                 onClick={() => setTheme("dark")}
                 className={`flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 ${
@@ -67,6 +70,7 @@ export function PreferencesSettings() {
                   {t("dark")}
                 </span>
               </button>
+
               <button
                 onClick={() => setTheme("system")}
                 className={`flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 ${
@@ -88,6 +92,7 @@ export function PreferencesSettings() {
                 </span>
               </button>
             </div>
+
             {theme === "system" && (
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
                 {t("currentTheme")}:{" "}
@@ -104,6 +109,7 @@ export function PreferencesSettings() {
           <Globe className="w-5 h-5 text-primary-600 dark:text-primary-400" />
           {t("language")}
         </h2>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <label
@@ -112,7 +118,8 @@ export function PreferencesSettings() {
             >
               {t("selectLanguage")}
             </label>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+
+            <div className="mt-1 lg:mt-2.5 grid grid-cols-2 gap-3 sm:gap-4">
               <button
                 onClick={() => setLanguage("en")}
                 className={`flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 ${

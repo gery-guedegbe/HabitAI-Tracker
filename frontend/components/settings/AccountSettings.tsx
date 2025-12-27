@@ -111,16 +111,18 @@ export function AccountSettings() {
             >
               {t("username")}
             </label>
+
             <input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={updateProfileMutation.isPending}
-              className="w-full px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full mt-1 lg:mt-2.5 px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground  placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               placeholder={t("enterUsername")}
             />
           </div>
+
           <div className="space-y-2">
             <label
               htmlFor="email"
@@ -128,13 +130,14 @@ export function AccountSettings() {
             >
               {t("email")}
             </label>
+
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={updateProfileMutation.isPending}
-              className="w-full px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full mt-1 lg:mt-2.5 px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               placeholder={t("enterEmail")}
             />
           </div>
@@ -190,13 +193,14 @@ export function AccountSettings() {
             >
               {t("currentPassword")}
             </label>
+
             <input
               id="current-password"
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               disabled={changePasswordMutation.isPending}
-              className="w-full px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full mt-1 lg:mt-2.5 px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               placeholder={t("enterCurrentPassword")}
             />
           </div>
@@ -207,13 +211,14 @@ export function AccountSettings() {
             >
               {t("newPassword")}
             </label>
+
             <input
               id="new-password"
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               disabled={changePasswordMutation.isPending}
-              className="w-full px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full mt-1 lg:mt-2.5 px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               placeholder={t("enterNewPassword")}
             />
           </div>
@@ -224,13 +229,14 @@ export function AccountSettings() {
             >
               {t("confirmNewPassword")}
             </label>
+
             <input
               id="confirm-password"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               disabled={changePasswordMutation.isPending}
-              className="w-full px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full mt-1 lg:mt-2.5 px-3 sm:px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               placeholder={t("confirmNewPassword")}
             />
           </div>

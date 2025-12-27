@@ -192,6 +192,7 @@ export default function JournalsPage() {
           <p className="text-error-600 dark:text-error-400 font-medium">
             {t("errorLoadingData")}
           </p>
+
           <p className="text-error-500 dark:text-error-500 text-sm mt-1">
             {error.message}
           </p>
@@ -210,6 +211,7 @@ export default function JournalsPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
             {t("myJournals")}
           </h1>
+
           <p className="text-sm text-muted-foreground mt-1">
             {filteredJournals.length}{" "}
             {filteredJournals.length === 1 ? t("journal") : t("journals")}
@@ -230,6 +232,7 @@ export default function JournalsPage() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+
           <input
             type="text"
             placeholder={t("searchJournals")}
@@ -238,6 +241,7 @@ export default function JournalsPage() {
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           />
         </div>
+
         <button
           onClick={() => setShowFilters(!showFilters)}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${

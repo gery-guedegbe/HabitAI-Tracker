@@ -1,15 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Mic,
-  Loader2,
-  ArrowLeft,
-  Sparkles,
-  Upload,
-  Square,
-} from "lucide-react";
-import Link from "next/link";
+import { Mic, Loader2, Sparkles, Upload, Square } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import { getTranslation } from "@/lib/i18n/i18n";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -285,6 +278,7 @@ export default function CreateJournalPage() {
             >
               {t("describeYourDay")}
             </label>
+
             <textarea
               id="journal"
               rows={8}
@@ -292,7 +286,7 @@ export default function CreateJournalPage() {
               value={journalText}
               onChange={(e) => setJournalText(e.target.value)}
               disabled={isProcessing || isRecording}
-              className="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none disabled:opacity-50"
+              className="w-full mt-2 lg:mt-4 px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none disabled:opacity-50"
             />
           </div>
 
@@ -309,7 +303,7 @@ export default function CreateJournalPage() {
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4 lg:flex hidden" />
                   <span>{t("analyzeMyDay")}</span>
                 </>
               )}
@@ -323,7 +317,7 @@ export default function CreateJournalPage() {
                   disabled={isProcessing}
                   className="flex items-center gap-2 px-4 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
                 >
-                  <Mic className="w-4 h-4" />
+                  <Mic className="lg:flex hidden w-4 h-4" />
                   <span>{t("recordAudio")}</span>
                 </button>
               )}
@@ -334,7 +328,7 @@ export default function CreateJournalPage() {
                   onClick={stopRecording}
                   className="flex items-center gap-2 px-2 lg:px-4 py-1.5 lg:py-3 text-sm bg-error-600 hover:bg-error-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
                 >
-                  <Square className="w-4 h-4" />
+                  <Square className="w-4 h-4 lg:flex hidden" />
                   <span>{formatTime(recordingTime)}</span>
                 </button>
               )}
@@ -345,7 +339,7 @@ export default function CreateJournalPage() {
                 disabled={isProcessing || isRecording}
                 className="flex items-center gap-2 px-2 lg:px-4 py-1.5 lg:py-3 text-sm bg-neutral-600 hover:bg-neutral-700 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
               >
-                <Upload className="w-4 h-4" />
+                <Upload className="w-4 h-4 lg:flex hidden" />
                 <span>{t("uploadAudio")}</span>
               </button>
 
@@ -387,7 +381,7 @@ export default function CreateJournalPage() {
               <button
                 onClick={handleRecordedAudioSubmit}
                 disabled={isProcessing}
-                className="flex items-center gap-2 px-2 lg:px-4 py-1.5 lg:py-3 text-sm bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-2 lg:px-4 py-1.5 lg:py-3 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <>

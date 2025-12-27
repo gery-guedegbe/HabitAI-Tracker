@@ -266,6 +266,8 @@ export const translations = {
     deleteJournalConfirmation: "Are you sure you want to delete this journal? This action cannot be undone.",
     deleteTask: "Delete Task",
     deleteTaskConfirmation: "Are you sure you want to delete this task? This action cannot be undone.",
+    logoutConfirmation: "Logout",
+    logoutConfirmationMessage: "Are you sure you want to logout? You will need to login again to access your account.",
   },
   fr: {
     // Navigation
@@ -289,6 +291,8 @@ export const translations = {
     deleteJournalConfirmation: "Êtes-vous sûr de vouloir supprimer ce journal ? Cette action est irréversible.",
     deleteTask: "Supprimer la tâche",
     deleteTaskConfirmation: "Êtes-vous sûr de vouloir supprimer cette tâche ? Cette action est irréversible.",
+    logoutConfirmation: "Déconnexion",
+    logoutConfirmationMessage: "Êtes-vous sûr de vouloir vous déconnecter ? Vous devrez vous reconnecter pour accéder à votre compte.",
     edit: "Modifier",
     create: "Créer",
     update: "Mettre à jour",

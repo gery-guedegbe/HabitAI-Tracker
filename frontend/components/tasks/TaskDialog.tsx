@@ -78,7 +78,7 @@ const Select = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+        className="w-full mt-1 lg:mt-2.5 flex items-center justify-between px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
       >
         <span>{displayValue}</span>
         <svg
@@ -97,6 +97,7 @@ const Select = ({
           />
         </svg>
       </button>
+
       {isOpen && (
         <div className="absolute z-50 w-full mt-1 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
           {options.map((option) => (
@@ -258,7 +259,7 @@ export function TaskDialog({
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 backdrop-blur-sm transition-opacity"
+        className="fixed w-full min-h-screen inset-0 bg-black/50 dark:bg-black/70 z-50 backdrop-blur-sm transition-opacity"
         onClick={() => onOpenChange(false)}
         aria-hidden="true"
       />
@@ -278,6 +279,7 @@ export function TaskDialog({
             <h2 className="text-xl font-semibold text-foreground">
               {task ? t("editTask") : t("createTask")}
             </h2>
+
             <button
               onClick={() => onOpenChange(false)}
               className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
@@ -298,6 +300,7 @@ export function TaskDialog({
                 >
                   {t("taskTitle")} *
                 </label>
+
                 <input
                   id="title"
                   type="text"
@@ -307,7 +310,7 @@ export function TaskDialog({
                   }
                   placeholder={t("taskTitlePlaceholder")}
                   required
-                  className="w-full px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 mt-1 lg:mt-2.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
@@ -317,6 +320,7 @@ export function TaskDialog({
                   <label className="text-sm font-medium text-foreground">
                     {t("taskCategory")} *
                   </label>
+
                   <Select
                     value={formData.category}
                     onValueChange={(value) =>
@@ -334,6 +338,7 @@ export function TaskDialog({
                   <label className="text-sm font-medium text-foreground">
                     {t("taskStatus")}
                   </label>
+
                   <Select
                     value={formData.status}
                     onValueChange={(value) =>
@@ -356,6 +361,7 @@ export function TaskDialog({
                 >
                   {t("taskDuration")} ({t("min")}) *
                 </label>
+
                 <input
                   id="duration"
                   type="number"
@@ -368,7 +374,7 @@ export function TaskDialog({
                     })
                   }
                   required
-                  className="w-full px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full mt-1 lg:mt-2.5 px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
@@ -380,6 +386,7 @@ export function TaskDialog({
                 >
                   {t("taskDescription")}
                 </label>
+
                 <textarea
                   id="note"
                   value={formData.note}
@@ -388,7 +395,7 @@ export function TaskDialog({
                   }
                   placeholder={t("taskDescriptionPlaceholder")}
                   rows={3}
-                  className="w-full px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                  className="w-full mt-1 lg:mt-2.5 px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                 />
               </div>
 
@@ -397,7 +404,8 @@ export function TaskDialog({
                 <label className="text-sm font-medium text-foreground">
                   {t("taskTags")}
                 </label>
-                <div className="flex gap-2">
+
+                <div className="flex gap-2 mt-1 lg:mt-2.5">
                   <input
                     type="text"
                     value={tagInput}
@@ -419,6 +427,7 @@ export function TaskDialog({
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
+
                 {formData.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2">
                     {formData.tags.map((tag) => (
@@ -451,6 +460,7 @@ export function TaskDialog({
               >
                 {t("cancel")}
               </button>
+
               <button
                 type="submit"
                 className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
