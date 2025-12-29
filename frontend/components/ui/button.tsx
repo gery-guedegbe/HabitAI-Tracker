@@ -12,11 +12,16 @@ type ButtonProps = {
 };
 
 const variantStyles = {
-  primary: "bg-primary-600 hover:bg-primary-700 text-white",
-  secondary: "bg-secondary-600 hover:bg-secondary-700 text-white",
-  danger: "bg-red-600 hover:bg-red-700 text-white",
-  ghost: "bg-transparent hover:bg-neutral-100 text-neutral-700",
-  outline: "bg-transparent border-2 border-primary-600 hover:bg-primary-50 text-primary-600",
+  primary:
+    "bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white",
+  secondary:
+    "bg-secondary-600 hover:bg-secondary-700 dark:bg-secondary-500 dark:hover:bg-secondary-600 text-white",
+  danger:
+    "bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white",
+  ghost:
+    "bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300",
+  outline:
+    "bg-transparent border-2 border-primary-600 dark:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-primary-600 dark:text-primary-400",
 };
 
 const sizeStyles = {
@@ -37,7 +42,9 @@ export default function Button({
   return (
     <motion.button
       className={`font-medium transition-colors ${variantStyles[variant]} ${sizeStyles[size]} ${className} ${
-        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        disabled
+          ? "opacity-50 cursor-not-allowed"
+          : "cursor-pointer shadow-sm hover:shadow-md"
       }`}
       onClick={onClick}
       disabled={disabled || loading}

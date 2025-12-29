@@ -153,6 +153,25 @@ async function resetPassword(req, res) {
   }
 }
 
+async function deleteAccount(req, res, next) {
+  try {
+    const userId = req.user.id;
+    
+    // Vérifier que l'utilisateur existe
+    const user = await userService.getUser(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Supprimer le compte
+    await userService.deleteUser(userId);
+
+    res.json({ message: "Account deleted successfully" });
+  } catch (error) {
+    return next(error);
+  }
+}
+
 module.exports = {
   register,
   login,
@@ -160,4 +179,5 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  deleteAccount,
 };

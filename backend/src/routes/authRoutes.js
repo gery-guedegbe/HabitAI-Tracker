@@ -189,4 +189,26 @@ router.post(
   authController.resetPassword
 );
 
+/**
+ * @swagger
+ * /api/auth/delete-account:
+ *   delete:
+ *     tags: [Auth]
+ *     summary: Supprimer le compte de l'utilisateur connecté
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Compte supprimé avec succès
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Utilisateur introuvable
+ */
+router.delete(
+  "/delete-account",
+  authMiddleware,
+  authController.deleteAccount
+);
+
 module.exports = router;

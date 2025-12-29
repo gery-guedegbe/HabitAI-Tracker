@@ -70,6 +70,7 @@ import {
   changePassword,
   forgotPassword,
   resetPassword,
+  deleteAccount,
   type LoginData,
   type RegisterData,
   type ChangePasswordData,
@@ -129,8 +130,14 @@ export function useLogin() {
       // Mettre à jour le context avec les infos utilisateur
       setUser(response.user);
 
-      // Rediriger vers le dashboard
-      router.push("/app/dashboard");
+      // Rediriger selon le rôle de l'utilisateur
+      if (response.user.role === "admin") {
+        // Admin → Interface admin
+        router.push("/app/admin");
+      } else {
+        // User normal → Dashboard
+        router.push("/app/dashboard");
+      }
     },
 
     // Callback en cas d'erreur (optionnel)
@@ -359,6 +366,57 @@ export function useResetPassword() {
     },
     onError: (error: Error) => {
       console.error("Erreur de réinitialisation:", error);
+    },
+  });
+}
+
+// ============= HOOK DELETE ACCOUNT =============
+
+/**
+ * Hook pour supprimer le compte de l'utilisateur connecté
+ *
+ * Ce hook utilise React Query pour gérer la mutation de suppression de compte.
+ * Après une suppression réussie, l'utilisateur est déconnecté et redirigé vers la page de login.
+ *
+ * RETOURNE :
+ * - mutate: Fonction pour déclencher la suppression de compte
+ * - isPending: État de chargement
+ * - error: Erreur éventuelle
+ * - isSuccess: Indique si la suppression a réussi
+ *
+ * EXEMPLE :
+ * ```tsx
+ * function DeleteAccountButton() {
+ *   const router = useRouter();
+ *   const { mutate: deleteUserAccount, isPending } = useDeleteAccount();
+ *
+ *   const handleDelete = () => {
+ *     deleteUserAccount(undefined, {
+ *       onSuccess: () => {
+ *         // L'utilisateur est déjà déconnecté et redirigé
+ *       },
+ *       onError: (error) => {
+ *         console.error('Erreur:', error.message);
+ *       }
+ *     });
+ *   };
+ * }
+ * ```
+ */
+export function useDeleteAccount() {
+  const router = useRouter();
+  const { logout } = useAuth();
+
+  return useMutation({
+    mutationFn: () => deleteAccount(),
+    onSuccess: () => {
+      // Déconnecter l'utilisateur
+      logout();
+      // Rediriger vers login
+      router.push("/login");
+    },
+    onError: (error: Error) => {
+      console.error("Erreur de suppression de compte:", error);
     },
   });
 }

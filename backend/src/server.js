@@ -26,6 +26,7 @@ const userRoutes = require("./routes/userRoutes");
 const journalRoutes = require("./routes/journalRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -115,6 +116,9 @@ app.use("/api/tasks", taskRoutes);
 
 // Routes dashboard
 app.use("/api/dashboard", dashboardRoutes);
+
+// Routes admin (protégées par adminOnly middleware)
+app.use("/api/admin", adminRoutes);
 
 // Middleware de gestion des erreurs
 app.use(errorHandler);

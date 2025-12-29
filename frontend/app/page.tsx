@@ -7,7 +7,7 @@ import HowItWorksSection from "@components/landing-page-sections/HowItWorksSecti
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-primary-50 via-white to-primary-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50/30 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 transition-colors duration-300">
       {/* NavBar */}
       <Navbar />
 

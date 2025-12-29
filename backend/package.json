@@ -8,6 +8,7 @@
     "dev": "nodemon src/server.js",
     "test": "jest --runInBand",
     "init-db": "node scripts/init-db.js",
+    "create-admin": "node scripts/create-admin.js",
     "verify-assemblyai": "node scripts/verify-assemblyai.js"
   },
   "keywords": [],

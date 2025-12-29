@@ -63,18 +63,18 @@ export function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-foreground bg-white hover:bg-neutral-100 border border-neutral-300 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-[0.98]"
+        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-foreground bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800 active:scale-[0.98]"
         aria-expanded={isOpen}
         aria-haspopup="true"
         aria-label="Select language"
       >
-        <Globe className="h-4 w-4 text-neutral-600" />
-        <span className="uppercase font-semibold text-neutral-700">
+        <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-neutral-600 dark:text-neutral-400" />
+        <span className="uppercase font-semibold text-neutral-700 dark:text-neutral-300 hidden sm:inline">
           {language}
         </span>
 
         <ChevronDown
-          className={`h-4 w-4 text-neutral-600 transition-transform duration-200 ${
+          className={`h-3.5 w-3.5 sm:h-4 sm:w-4 text-neutral-600 dark:text-neutral-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -83,7 +83,7 @@ export function LanguageSwitcher() {
       {/* Dropdown menu */}
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-neutral-200 py-1 z-50 opacity-0 animate-[fadeIn_0.15s_ease-out_forwards] origin-top-right"
+          className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 py-1 z-50 opacity-0 animate-[fadeIn_0.15s_ease-out_forwards] origin-top-right"
           role="menu"
           aria-orientation="vertical"
         >
@@ -96,8 +96,8 @@ export function LanguageSwitcher() {
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 ${
                   isSelected
-                    ? "bg-primary-50 text-primary-700 font-medium"
-                    : "text-neutral-700 hover:bg-neutral-50"
+                    ? "bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium"
+                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700"
                 }`}
                 role="menuitem"
               >

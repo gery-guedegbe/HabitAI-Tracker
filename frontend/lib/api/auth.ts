@@ -119,6 +119,13 @@ export interface ResetPasswordResponse {
   message: string;
 }
 
+/**
+ * Réponse de l'API lors de la suppression de compte
+ */
+export interface DeleteAccountResponse {
+  message: string;
+}
+
 // ============= FONCTIONS API =============
 
 /**
@@ -289,6 +296,29 @@ export async function resetPassword(
   const response = await api.post<ResetPasswordResponse>(
     "/api/auth/reset-password",
     data
+  );
+  return response;
+}
+
+/**
+ * Supprime le compte de l'utilisateur connecté
+ *
+ * @returns Message de confirmation
+ * @throws Error si l'utilisateur n'est pas authentifié ou si la suppression échoue
+ *
+ * EXEMPLE :
+ * ```ts
+ * try {
+ *   const result = await deleteAccount();
+ *   console.log('Compte supprimé:', result.message);
+ * } catch (error) {
+ *   console.error('Erreur:', error.message);
+ * }
+ * ```
+ */
+export async function deleteAccount(): Promise<DeleteAccountResponse> {
+  const response = await api.delete<DeleteAccountResponse>(
+    "/api/auth/delete-account"
   );
   return response;
 }

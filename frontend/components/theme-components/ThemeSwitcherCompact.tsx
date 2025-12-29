@@ -81,7 +81,7 @@ export function ThemeSwitcherCompact() {
 
       {isOpen && (
         <div
-          className="absolute bottom-full right-0 mb-2 w-36 bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 py-1 z-50 opacity-0 animate-[fadeIn_0.15s_ease-out_forwards] origin-bottom-right"
+          className="absolute top-full right-0 mt-2 w-36 bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 py-1 z-50 opacity-0 animate-[fadeIn_0.15s_ease-out_forwards] origin-top-right"
           role="menu"
         >
           {themes.map((themeOption) => {

@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Save, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Save, Loader2, CheckCircle, AlertCircle, Trash2 } from "lucide-react";
 import { getTranslation } from "@/lib/i18n/i18n";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useAuth } from "@/lib/auth/context";
-import { useChangePassword } from "@/lib/auth/hooks";
+import { useChangePassword, useDeleteAccount } from "@/lib/auth/hooks";
 import { useUpdateProfile } from "@/hooks/useUpdateProfile";
+import { useConfirmDialog } from "@/hooks/useConfirmDialog";
 
 export function AccountSettings() {
   const { language } = useLanguage();
   const { user } = useAuth();
   const changePasswordMutation = useChangePassword();
   const updateProfileMutation = useUpdateProfile();
+  const deleteAccountMutation = useDeleteAccount();
+  const confirmDialog = useConfirmDialog();
 
   const t = (key: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -273,6 +276,54 @@ export function AccountSettings() {
               <span>{t("updatePassword")}</span>
             )}
           </button>
+        </div>
+      </div>
+
+      {/* Danger Zone - Delete Account */}
+      <div className="bg-white dark:bg-neutral-900 rounded-lg border border-error-200 dark:border-error-800 p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-2 sm:mb-3">
+          {t("dangerZone")}
+        </h2>
+        <p className="text-sm text-muted-foreground mb-4 sm:mb-6">
+          {t("dangerZoneDescription")}
+        </p>
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-sm sm:text-base font-medium text-foreground mb-1">
+              {t("deleteAccount")}
+            </h3>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+              {t("deleteAccountDescription")}
+            </p>
+            <button
+              onClick={async () => {
+                const confirmed = await confirmDialog.confirm({
+                  title: t("deleteAccount"),
+                  message: t("deleteAccountConfirmation"),
+                  variant: "danger",
+                  confirmText: t("deleteAccount"),
+                  cancelText: t("cancel"),
+                  onConfirm: async () => {
+                    await deleteAccountMutation.mutateAsync();
+                  },
+                });
+              }}
+              disabled={deleteAccountMutation.isPending}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-error-600 hover:bg-error-700 text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
+            >
+              {deleteAccountMutation.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>{t("deleting")}</span>
+                </>
+              ) : (
+                <>
+                  <Trash2 className="w-4 h-4" />
+                  <span>{t("deleteAccount")}</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
