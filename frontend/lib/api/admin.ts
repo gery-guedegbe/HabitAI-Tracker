@@ -56,10 +56,9 @@ export async function getGlobalStats(): Promise<GlobalStats> {
 export async function getUserActivityStats(
   limit?: number
 ): Promise<{ data: UserActivity[] }> {
-  const params = limit ? { limit } : {};
+  const queryParams = limit ? `?limit=${limit}` : "";
   const response = await api.get<{ data: UserActivity[] }>(
-    "/api/admin/users/activity",
-    { params }
+    `/api/admin/users/activity${queryParams}`
   );
   return response;
 }
@@ -70,10 +69,9 @@ export async function getUserActivityStats(
 export async function getActivityOverTime(
   days?: number
 ): Promise<{ data: ActivityOverTime[] }> {
-  const params = days ? { days } : {};
+  const queryParams = days ? `?days=${days}` : "";
   const response = await api.get<{ data: ActivityOverTime[] }>(
-    "/api/admin/activity/time",
-    { params }
+    `/api/admin/activity/time${queryParams}`
   );
   return response;
 }

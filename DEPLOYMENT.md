@@ -128,3 +128,47 @@ Guide pour déployer HabitAI Tracker en production.
 
 - Vérifier que `FRONTEND_URL` dans le backend correspond à l'URL du frontend
 - Vérifier la configuration CORS dans `backend/src/server.js`
+
+## 🔄 Keep-Alive pour Render (Version Gratuite)
+
+Render éteint les serveurs gratuits après **15 minutes d'inactivité**. Pour maintenir votre serveur actif, une **GitHub Action** est configurée pour ping automatiquement votre serveur toutes les **12 minutes**.
+
+### Configuration
+
+1. **Configurer le secret GitHub** :
+
+   - Allez dans votre repo GitHub
+   - **Settings** > **Secrets and variables** > **Actions**
+   - Cliquez sur **New repository secret**
+   - **Name** : `RENDER_SERVER_URL`
+   - **Value** : L'URL complète de votre backend Render (ex: `https://votre-app.onrender.com`)
+   - Cliquez sur **Add secret**
+
+2. **Activer le workflow** :
+
+   - Le workflow est déjà configuré dans `.github/workflows/keep-alive.yml`
+   - Il s'exécute automatiquement toutes les 12 minutes
+   - Vous pouvez aussi le déclencher manuellement : **Actions** > **Keep Server Alive** > **Run workflow**
+
+3. **Vérifier que ça fonctionne** :
+
+   - Allez dans **Actions** de votre repo GitHub
+   - Vous devriez voir le workflow "Keep Server Alive" s'exécuter toutes les 12 minutes
+   - Les logs montrent si le ping a réussi (HTTP 200) ou échoué
+
+### Comment ça marche
+
+- Le workflow fait une requête GET vers `/api/health` toutes les 12 minutes
+- Cela maintient le serveur actif et évite qu'il s'éteigne
+- L'endpoint `/api/health` est déjà configuré dans votre backend
+- **Coût** : Gratuit (GitHub Actions offre 2000 minutes/mois pour les repos privés, illimité pour les repos publics)
+
+### Alternative : Services externes
+
+Si vous préférez ne pas utiliser GitHub Actions, vous pouvez utiliser :
+
+- **UptimeRobot** (gratuit) : https://uptimerobot.com
+- **cron-job.org** (gratuit) : https://cron-job.org
+- **Pingdom** (gratuit jusqu'à 50 checks) : https://www.pingdom.com
+
+Configurez-les pour ping `https://votre-app.onrender.com/api/health` toutes les 12-14 minutes.

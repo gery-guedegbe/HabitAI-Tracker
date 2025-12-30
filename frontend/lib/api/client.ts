@@ -61,9 +61,9 @@ async function apiClient<T>(
   const token = getToken();
 
   // 3. Préparer les headers
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    ...options.headers, // Permet de surcharger les headers si besoin
+    ...(options.headers as Record<string, string> || {}), // Permet de surcharger les headers si besoin
   };
 
   // 4. Ajouter le token JWT si disponible

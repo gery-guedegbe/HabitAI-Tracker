@@ -38,8 +38,22 @@ export function AdminTaskStats() {
     queryFn: getCategoryDistribution,
   });
 
+  // Map status values to translation keys
+  const getStatusTranslationKey = (status: string): Parameters<typeof getTranslation>[0] => {
+    switch (status) {
+      case "done":
+        return "completed";
+      case "in_progress":
+        return "inProgress";
+      case "todo":
+        return "toDo";
+      default:
+        return status as Parameters<typeof getTranslation>[0];
+    }
+  };
+
   const completionData = completionStats?.data.map((item) => ({
-    name: t(item.status === "done" ? "completed" : item.status),
+    name: t(getStatusTranslationKey(item.status)),
     value: item.count,
   }));
 
@@ -62,7 +76,7 @@ export function AdminTaskStats() {
                 cy="50%"
                 labelLine={false}
                 label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
+                  `${name} ${((percent || 0) * 100).toFixed(0)}%`
                 }
                 outerRadius={80}
                 fill="#8884d8"

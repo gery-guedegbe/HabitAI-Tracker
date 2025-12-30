@@ -25,10 +25,13 @@ export async function listUsers(
   limit?: number,
   offset?: number
 ): Promise<ListUsersResponse> {
-  const params: { limit?: number; offset?: number } = {};
-  if (limit !== undefined) params.limit = limit;
-  if (offset !== undefined) params.offset = offset;
-  const response = await api.get<ListUsersResponse>("/api/users", { params });
+  const queryParams = new URLSearchParams();
+  if (limit !== undefined) queryParams.append("limit", limit.toString());
+  if (offset !== undefined) queryParams.append("offset", offset.toString());
+  const queryString = queryParams.toString();
+  const url = queryString ? `/api/users?${queryString}` : "/api/users";
+
+  const response = await api.get<ListUsersResponse>(url);
   return response;
 }
 

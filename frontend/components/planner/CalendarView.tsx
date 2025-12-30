@@ -244,7 +244,13 @@ export function CalendarView({ initialView = "month" }: CalendarViewProps) {
         {view === "month" && (
           <div className="w-full bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 sm:p-6">
             <Calendar
-              onChange={setSelectedDate}
+              onChange={(value) => {
+                if (value instanceof Date) {
+                  setSelectedDate(value);
+                } else if (Array.isArray(value) && value[0] instanceof Date) {
+                  setSelectedDate(value[0]);
+                }
+              }}
               value={selectedDate}
               tileContent={tileContent}
               tileClassName={tileClassName}

@@ -40,7 +40,7 @@ export function AdminUserManagement() {
 
   // Merge users with activity data
   const users = usersData?.data.map((user) => {
-    const activity = activityData?.data.find((a) => a.id === user.id);
+    const activity = activityData?.data.find((a) => String(a.id) === String(user.id));
     return {
       ...user,
       journalCount: activity?.journalCount ?? 0,
@@ -231,7 +231,7 @@ export function AdminUserManagement() {
                       <>
                         <button
                           onClick={() =>
-                            handleDeactivate(user.id, user.username ?? "")
+                            handleDeactivate(String(user.id), user.username ?? "")
                           }
                           disabled={
                             deactivateMutation.isPending ||
@@ -244,7 +244,7 @@ export function AdminUserManagement() {
                         </button>
                         <button
                           onClick={() =>
-                            handleDelete(user.id, user.username ?? "")
+                            handleDelete(String(user.id), user.username ?? "")
                           }
                           disabled={
                             deactivateMutation.isPending ||

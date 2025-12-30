@@ -1,0 +1,51 @@
+name: Keep Server Alive
+
+on:
+    # Exécution automatique toutes les 12 minutes
+    schedule:
+        # Format: minute heure jour mois jour-semaine
+        # Toutes les 12 minutes: */12 * * * *
+        # Pour tester, vous pouvez utiliser: */5 * * * * (toutes les 5 minutes)
+        - cron: "*/12 * * * *"
+
+    # Permet aussi de déclencher manuellement depuis GitHub
+    workflow_dispatch:
+
+jobs:
+    ping-server:
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Ping Server Health Endpoint
+              env:
+                  # Récupère l'URL du serveur depuis les secrets GitHub
+                  # Configurez ce secret dans: Settings > Secrets and variables > Actions
+                  SERVER_URL: ${{ secrets.RENDER_SERVER_URL }}
+              run: |
+                  if [ -z "$SERVER_URL" ]; then
+                    echo "❌ ERREUR: SERVER_URL n'est pas défini!"
+                    echo "📝 Configurez le secret RENDER_SERVER_URL dans:"
+                    echo "   Settings > Secrets and variables > Actions > New repository secret"
+                    echo "   Nom: RENDER_SERVER_URL"
+                    echo "   Valeur: https://votre-app.onrender.com"
+                    exit 1
+                  fi
+
+                  echo "🏥 Pinging server health endpoint: $SERVER_URL/api/health"
+
+                  # Fait une requête GET vers l'endpoint health
+                  response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$SERVER_URL/api/health" || echo "000")
+
+                  if [ "$response" = "200" ]; then
+                    echo "✅ Server is alive! (HTTP $response)"
+                    echo "⏰ Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+                    exit 0
+                  else
+                    echo "❌ Server health check failed! (HTTP $response)"
+                    echo "⚠️  This might mean the server is sleeping or there's an issue."
+                    echo "⏰ Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+                    # On ne fait pas échouer le workflow pour éviter les notifications inutiles
+                    # Le serveur se réveillera au prochain ping
+                    exit 0
+                  fi
