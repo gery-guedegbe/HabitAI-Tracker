@@ -41,7 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${inter.variable} antialiased`}>
+      <body
+        className={`${inter.variable} antialiased`}
+        suppressHydrationWarning={true}
+      >
         <Providers>
           <ThemeProvider defaultTheme="system" storageKey="habitai-theme">
             <LanguageProvider>{children}</LanguageProvider>

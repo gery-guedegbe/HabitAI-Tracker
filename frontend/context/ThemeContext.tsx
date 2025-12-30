@@ -2,7 +2,15 @@
 
 import type React from "react";
 
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useMemo,
+  startTransition,
+} from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -23,32 +31,33 @@ export function ThemeProvider({
   defaultTheme?: Theme;
   storageKey?: string;
 }) {
-  // Utiliser une fonction d'initialisation lazy pour éviter les rendus en cascade
-  const [theme, setThemeState] = useState<Theme>(() => {
-    // Vérifier si on est côté client (localStorage n'existe pas côté serveur)
-    if (typeof window === "undefined") {
-      return defaultTheme;
-    }
+  // Toujours initialiser avec defaultTheme côté serveur pour éviter les différences d'hydratation
+  const [theme, setThemeState] = useState<Theme>(defaultTheme);
+  // État pour forcer le recalcul lors des changements de préférence système
+  const [systemPreference, setSystemPreference] = useState<"light" | "dark">(
+    "light"
+  );
+
+  // Charger le thème depuis localStorage après le montage (côté client uniquement)
+  // Utiliser useLayoutEffect pour éviter le flash de contenu incorrect
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+
     const stored = localStorage.getItem(storageKey) as Theme | null;
     if (
       stored &&
       (stored === "light" || stored === "dark" || stored === "system")
     ) {
-      return stored;
+      startTransition(() => {
+        setThemeState(stored);
+      });
     }
-    return defaultTheme;
-  });
-  // État pour forcer le recalcul lors des changements de préférence système
-  const [systemPreference, setSystemPreference] = useState<"light" | "dark">(
-    () => {
-      if (typeof window === "undefined") {
-        return "light";
-      }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-  );
+    // Définir la préférence système initiale
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    startTransition(() => {
+      setSystemPreference(mediaQuery.matches ? "dark" : "light");
+    });
+  }, [storageKey]);
 
   // Calculer le thème résolu avec useMemo pour éviter les rendus en cascade
   const resolvedTheme = useMemo<"light" | "dark">(() => {
@@ -81,8 +90,10 @@ export function ThemeProvider({
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
-    localStorage.setItem(storageKey, newTheme);
     setThemeState(newTheme);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(storageKey, newTheme);
+    }
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import type React from "react";
 import type { Language } from "@/lib/i18n/i18n";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 type LanguageContextType = {
   language: Language;
@@ -23,22 +23,24 @@ export function useLanguage() {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // Utiliser une fonction d'initialisation lazy pour éviter les rendus en cascade
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Vérifier si on est côté client (localStorage n'existe pas côté serveur)
-    if (typeof window === "undefined") {
-      return "en";
-    }
+  // Toujours initialiser avec "en" côté serveur pour éviter les différences d'hydratation
+  const [language, setLanguageState] = useState<Language>("en");
+
+  // Charger la langue depuis localStorage après le montage (côté client uniquement)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const stored = localStorage.getItem("habitai-language") as Language;
     if (stored && (stored === "en" || stored === "fr")) {
-      return stored;
+      setLanguageState(stored);
     }
-    return "en";
-  });
+  }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("habitai-language", lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("habitai-language", lang);
+    }
   };
 
   return (
