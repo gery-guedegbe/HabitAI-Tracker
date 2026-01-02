@@ -4,6 +4,7 @@ import type React from "react";
 
 import Link from "next/link";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { useLogin } from "../../lib/auth/hooks";
 import { getTranslation } from "@/lib/i18n/i18n";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -11,6 +12,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
@@ -140,18 +142,32 @@ const LoginPage = () => {
               </Link>
             </div>
 
-            <input
-              id="password"
-              type="password"
-              placeholder="........."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`w-full px-3 sm:px-2.5 py-2 sm:py-1.5 md:py-3 rounded-lg border text-sm ${
-                errors.password
-                  ? "border-red-500 dark:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                  : "border-neutral-300 dark:border-neutral-600 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-primary-500 dark:focus:border-primary-400"
-              } outline-none transition-colors text-foreground placeholder:text-neutral-400 dark:placeholder:text-neutral-500 bg-white dark:bg-neutral-900`}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="........."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={`w-full px-3 sm:px-2.5 py-2 sm:py-1.5 md:py-3 pr-10 rounded-lg border text-sm ${
+                  errors.password
+                    ? "border-red-500 dark:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    : "border-neutral-300 dark:border-neutral-600 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-primary-500 dark:focus:border-primary-400"
+                } outline-none transition-colors text-foreground placeholder:text-neutral-400 dark:placeholder:text-neutral-500 bg-white dark:bg-neutral-900`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors focus:outline-none"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
+                ) : (
+                  <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-xs sm:text-sm text-red-600 dark:text-red-400 mt-1">
                 {errors.password}
